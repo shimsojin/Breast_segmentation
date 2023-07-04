@@ -9,7 +9,7 @@ Input files
 
 
 * Breast_Segmentation_run_batch.py
-Main script. Segment input numpy images and generate output files
+Main script. Segment input numpy images and generate output files/
 Input_path: directory including only breast CT numpy images, grey level in Hounsfield unit (HU), int16=[-2**10, 2*10] without the cylinder
 	Consider pid as the unique number of the numpy file. 
 Output_path: same as Input_path as default
