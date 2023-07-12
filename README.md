@@ -34,14 +34,17 @@ INPUTS::
 Input_path: directory including the segmented numpy images (Output_path of Breast_Segmentation_run_batch.py).
 Output_path: same as Input_path as default.
 OUTPUTS::
-	img_[pid]_(c/s/t).png: 3 plane representative breast images taken from the largest transection
-	auto_seg_[pid]_(c/s/t).png: 3 plane representative segmentation images taken from the largest transection
-	Glandularity.csv: csv file recording the glandularity (G) analysis for each numpy image in the input directory
-		id=pid, HU_G=glandularity [-] calculated based on HU, Seg_G=glandularity [-] calculated based on segmentation
+img_[uid]_(c/s/t).png: 3 plane representative breast images taken from the largest transection.
+auto_seg_[uid]_(c/s/t).png: 3 plane representative segmentation images taken from the largest transection.
+Glandularity.csv: csv file recording the glandularity (G) analysis for each numpy image in the input directory.
+id=uid, HU_G=glandularity [-] calculated based on HU, Seg_G=glandularity [-] calculated based on segmentation.
 
 ## Numpy_to_DICOM.py
-This script save the numpy images to DICOM files using the default DICOM header, which can be replaced/customised.
+This script save the numpy images to DICOM files using the default DICOM header, which can be replaced/customised. The converted DICOM files of segmented images can be used for Monte Carlo simulation offered by AB-CT - Advanced Breast CT GmbH. For the simulation purpose, the image of CT table cylinder is inserted back during the conversion. If the cylinder structure is not desired, it can be turned off.
 INPUTS::
 Input_path: directory including the segmented numpy images.
 Output_path: same as Input_path as default.
-OUTPUT:: 
+dicom_file: dicom file including the meta data that is desired to be copied to the ouput dicom file
+cylinder: numpy cylinder image (attached in the package)
+Cylinder: switch the appearance of the cylinder structure in the final output image: 1 - On (default) / 0 - off
+OUTPUTS:: 
