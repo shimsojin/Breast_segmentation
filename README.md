@@ -4,8 +4,10 @@ The breast segmentation scripts are written by Sojin Shim, Ph.D., Institute of D
 The scripts segment breast CT images in numpy format or convert the format to be runable by the segmentation script. The details of each script are following.
 
 ## DICOM_to_numpy.py
-Converting the DICOM to numpy with minor preprocessing - Removing the CT table cylinder and a few most posterior slices with suboptimal image quality for image analysis.
-Input_path: path to the directory including DICOM image files.
+This script converts the DICOM to numpy with minor preprocessing - Removing the CT table cylinder and a few most posterior slices with suboptimal image quality for image analysis.
+* If the entire or part of preprocessing is not desired, the code has to be modified accordingly: remove the preprocessing part and include it in the segmentation function (Function_Breast_Segmentation.py)
+path_uids: path to the directory including DICOM image files with unique uids. (input path)
+output_path: same as the input path (puth_uids) as the default. 
 
 ## Breast_Segmentation_run_batch.py
 Main script. Segment input numpy images and generate output files
