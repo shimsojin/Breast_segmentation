@@ -47,4 +47,5 @@ Output_path: same as Input_path as default.
 dicom_file: dicom file including the meta data that is desired to be copied to the ouput dicom file
 cylinder: numpy cylinder image (attached in the package)
 Cylinder: switch the appearance of the cylinder structure in the final output image: 1 - On (default) / 0 - off
-OUTPUTS:: 
+OUTPUTS::
+uid directories: containing the corresponding DICOM files of the numpy image segmentation_[uid].
