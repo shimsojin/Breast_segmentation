@@ -8,7 +8,7 @@ This script converts the DICOM to numpy with minor preprocessing - Removing the 
 * If the entire or part of preprocessing is not desired, the code has to be modified accordingly: remove the preprocessing part and include it in the segmentation function (Function_Breast_Segmentation.py)
 INPUTS::
 path_uids: path to the directory(ies) including DICOM image files with unique uids. (input path)
-output_path: same as the input path (puth_uids) as the default.
+output_path: same as the input path (path_uids) as the default.
 OUTPUTS::
 Converted numpy images with the corresponding uids.
 
