@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Sojin SHIM, M.Sc., University Hospital Zurich, 2019-2021
+Sojin SHIM, Ph.D., Institute of Diagnostic and Interventional Radiology, University Hospital Zurich, 2019-2023
 Segmentation of the breast CT image in HU
 
 From numpy HU array to numpy segmentation array
@@ -15,7 +15,8 @@ Output segmentation code
 Output segmentation time
 total, rib, silicone implant, muscle, skin, gland
 """
-#%%
+
+# %%
 import os
 import csv
 import numpy as np
@@ -31,7 +32,7 @@ from scipy.ndimage import measurements
 from scipy.ndimage import distance_transform_edt
 from scipy import interpolate
 
-#%%  
+# %%  
 def LargestConnComp(ImgBi) :
     mask = np.zeros(np.shape(ImgBi))
     ConnectedComponent = measure.label(ImgBi)
@@ -58,9 +59,9 @@ def HUcalibration(HU) :
     HUnear = find_nearest(HUint,HU)
     return glandularity_near(HUnear)
 
-#%% Breast_Segmentation function: takes about 12+-10 minutes per breast
+# %% Breast_Segmentation function: takes about 12+-10 minutes per breast
 def Breast_Segmentation(id, img,output_path):
-    output_time = output_path + "Segmentation_time.csv"
+    output_time = output_path + "/Segmentation_time.csv"
     
     t_start=process_time()
     now = datetime.datetime.now()
@@ -344,7 +345,7 @@ def Breast_Segmentation(id, img,output_path):
             print('Rib and silicon segmented in %.1f s.'%tRS)
         elif tSi_stop: # Silicon only
             tSi = tRS
-            print('Silicon segmented in %.1f s.'%tSi)
+            print('Silicone segmented in %.1f s.'%tSi)
         else: # Rib only
             tRib = tRS
             print('Rib segmented in %.1f s.'%tRib)
@@ -469,8 +470,6 @@ def Breast_Segmentation(id, img,output_path):
     th = -51 # 100% glandularity HU value within SD
     temp = img_tissue >= th 
     
-    #seg=np.zeros(img_tissue.shape)
-    
     # if there is detected glands
     if np.sum(temp) > 0:
         lab = []
@@ -498,9 +497,7 @@ def Breast_Segmentation(id, img,output_path):
             if gland_th > meanGland:
                 break
         
-        # Two maps to applying region growing by comparing from the seed
-        
-        
+        # Two maps to applying region growing by comparing from the seed 
             # negetive
         temp = img_tissue >= th_list[-2]
         label = measure.label(temp)
@@ -532,14 +529,8 @@ def Breast_Segmentation(id, img,output_path):
         gland_reg_p = sum(sum(sum(seg_p)))/HU_tissue.shape[0]
         
         if abs(gland_reg_n-meanGland)>abs(gland_reg_p-meanGland):
-            #threshold = th_list[-1]
-            #glandularity = gland_reg_p
-            #glandularity_th = gland_list_th[-1]
             seg = seg_p
         else: 
-            #threshold = th_list[-2]
-            #glandularity = gland_reg_n
-            #glandularity_th = gland_list_th[-2]
             seg = seg_n
         
         mask[seg]=2
@@ -552,7 +543,7 @@ def Breast_Segmentation(id, img,output_path):
     print('Segmentation completed in total %.1f s.'%tTotal)
     
     #%% CSV file for time record.
-    fnames = ['id', 'Total', 'Gland', 'Skin', 'Muscle', 'Rib', 'Fold', 'Silicon']
+    fnames = ['id', 'Total', 'Glands', 'Skin', 'Muscle', 'Rib', 'Fold', 'Silicone']
         # first time only: header
     if not os.path.isfile(output_time):
         f = open(output_time, 'w')
