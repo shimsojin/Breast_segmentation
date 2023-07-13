@@ -11,6 +11,7 @@ path_uids: path to the directory(ies) including DICOM image files with unique ui
 output_path: same as the input path (path_uids) as the default.
 OUTPUTS::
 Converted numpy images with the corresponding uids.
+cylinder.npy: saves one plane of the cylinder structure for the image conversion to DICOM by Numpy_to_DICOM.py
 
 ## Breast_Segmentation_run_batch.py
 This is the main script. It applies the segmentation on the input numpy images and generates output files - output segmentation image and csv file indicating the time duration of the segmentation.
